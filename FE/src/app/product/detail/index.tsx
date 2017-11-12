@@ -14,6 +14,7 @@ interface Product{
 interface State{
     product: Product;
     products: Product[];
+    showMoreList: boolean;
 }
 
 export default class ProductComponent extends React.Component<Props, State>{
@@ -32,47 +33,56 @@ export default class ProductComponent extends React.Component<Props, State>{
         };
         this.state = {
             product: product,
-            products: [product]
+            products: [product, product, product, product, product],
+            showMoreList: true
         }
     }
 
     renderMoreList(): JSX.Element{
         let products = this.state.products.map((product: Product)=>{
-            <div>
-                {product.name}
-            </div>
+            return (
+                <div className={STYLE.moreListProduct} key={product.id}>
+                    <div>
+                        <img src={product.cover} />
+                    </div>
+                    {product.name}
+                </div>
+            )
         });
-        return (
-            <div>
-                <div>
-                    {products}
+        if (this.state.showMoreList){
+            return (
+                <div className={STYLE.moreList} onClick={()=>{this.setState({"showMoreList": false})}}>
+                    <div className={STYLE.moreListProducts}>
+                        {products}
+                    </div>
                 </div>
-                <div>
-                    更多商品
-                </div>
-            </div>
-        )
+            )
+        }
+        else{
+            return null;
+        }
     }
 
     render(): JSX.Element{
+        let {cover, name, describe, price} = this.state.product;
         return (
             <div className={STYLE.product}>
                 <div className={STYLE.cover}>
-                    <img src={this.state.cover}/>
+                    <img src={cover}/>
                 </div>
                 <div className={STYLE.content}>
                     <div className={STYLE.title}>
-                        {this.state.name}
+                        {name}
                     </div>
                     <div>
                         <div className={STYLE.star}>
                             精品推荐
                         </div>
                         <div className={STYLE.price}>
-                            ￥{this.state.price}
+                            ￥{price}
                         </div>
                     </div>
-                    <div className={STYLE.describe} dangerouslySetInnerHTML={{__html: this.state.describe}}/>
+                    <div className={STYLE.describe} dangerouslySetInnerHTML={{__html: describe}}/>
                 </div>
                 <div>
                     <div className={STYLE.shopBtn}>
@@ -80,6 +90,15 @@ export default class ProductComponent extends React.Component<Props, State>{
                     </div>
                 </div>
                 {this.renderMoreList()}
+                {
+                    !this.state.showMoreList ?
+                        <div className={STYLE.moreListBtn} onClick={() => {
+                            this.setState({"showMoreList": true})
+                        }}>
+                            更多商品>>
+                        </div>
+                    : null
+                }
             </div>
         )
     }

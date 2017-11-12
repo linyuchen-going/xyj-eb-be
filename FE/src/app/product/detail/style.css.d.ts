@@ -6,3 +6,7 @@ export const star: string;
 export const price: string;
 export const describe: string;
 export const shopBtn: string;
+export const moreList: string;
+export const moreListBtn: string;
+export const moreListProduct: string;
+export const moreListProducts: string;
