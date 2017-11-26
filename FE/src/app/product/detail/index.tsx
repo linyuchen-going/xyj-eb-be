@@ -1,14 +1,11 @@
 import * as React from 'react'
 import * as STYLE from './style.css'
+import * as apiProduct from '../../../api/product'
+import {ApiResProductDetail, ApiResProducts} from "../../../api/product/responses";
+
 
 interface Props{}
-interface Product{
-    id: number;
-    name: string;
-    describe: string;
-    price: number;
-    first_pay_price: number;
-    cover: string;
+export interface Product extends ApiResProductDetail{
 }
 
 interface State{
@@ -34,14 +31,39 @@ export default class ProductComponent extends React.Component<Props, State>{
         this.state = {
             product: product,
             products: [product, product, product, product, product],
-            showMoreList: true
+            showMoreList: false
         }
+    }
+
+    componentDidMount(){
+        this.getAllProducts();
+        this.getProductData(1);
+    }
+
+    getProductData(id: number){
+        apiProduct.apiProductDetail(id).
+        then((res: ApiResProductDetail)=>{
+            this.setState({
+                product: res
+            })
+        })
+    }
+
+    getAllProducts(){
+        apiProduct.apiProductList().
+        then(
+            (res: ApiResProducts)=>{
+                this.setState({
+                    products: res.results
+                })
+            }
+        )
     }
 
     renderMoreList(): JSX.Element{
         let products = this.state.products.map((product: Product)=>{
             return (
-                <div className={STYLE.moreListProduct} key={product.id}>
+                <div className={STYLE.moreListProduct} key={product.id} onClick={()=>this.getProductData(product.id)}>
                     <div>
                         <img src={product.cover} />
                     </div>

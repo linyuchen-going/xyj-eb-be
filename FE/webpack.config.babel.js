@@ -8,7 +8,7 @@ import fs from 'fs'
 import htmlPlugin from 'html-webpack-plugin'
 
 // 是否调试环境
-let DEBUG = process.argv.find((i)=> i === '-p' ) === null;
+let DEBUG = process.argv.find((i)=> i === '-p' ) == null;
 
 fs.writeFile(path.join(__dirname, "src/config/debug.ts"), `export default ${DEBUG ? "true" : "false"}`);
 
