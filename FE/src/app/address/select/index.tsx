@@ -28,12 +28,13 @@ interface Props{
 export default class AddressComponent extends React.Component<Props, State>{
 
     private showingAddressEdit: boolean;
+    private selectedAddress: Address;
 
     constructor(p: Props){
         super(p);
         this.showingAddressEdit = false;
         let address: Address = {
-            id: 0,
+            id: null,
             name: "",
             mobile: "",
             detail: "",
@@ -47,7 +48,8 @@ export default class AddressComponent extends React.Component<Props, State>{
             items: [],
             showAddressEdit: false,
             selectedAddress: address
-        }
+        };
+        this.selectedAddress = address;
     }
 
     componentWillMount(){
@@ -78,6 +80,7 @@ export default class AddressComponent extends React.Component<Props, State>{
                         <div className={STYLE.name}>{item.name}</div>
                         <div className={STYLE.iconEdit} onClick={()=>{
                             this.showingAddressEdit = true;
+                            this.selectedAddress = item;
                             this.setState({showAddressEdit: true, selectedAddress: item});
                         }}>
                             <img src={ICON_ADDR_EDIT}/>
@@ -97,7 +100,7 @@ export default class AddressComponent extends React.Component<Props, State>{
                 <div className={STYLE.btnCancel} onClick={()=>this.props.btnCancelClick()}>X</div>
                 {items}
                 <div className={STYLE.bg} />
-                <div className={STYLE.btnNew}>
+                <div className={STYLE.btnNew} onClick={()=>{this.setState({showAddressEdit: true})}}>
                     新建地址
                 </div>
             </div>

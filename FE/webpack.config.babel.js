@@ -58,7 +58,8 @@ const config = {
     plugins:[
         new htmlPlugin({
             template: path.resolve(__dirname, "src/tpl/index.html"),
-            title: "首页"
+            title: "首页",
+            publicPath: DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"
         })
     ],
     target: "web"

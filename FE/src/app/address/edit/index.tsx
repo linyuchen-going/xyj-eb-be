@@ -25,7 +25,10 @@ export default class AddressEditComponent extends React.Component<Props, State>{
     }
 
     save(){
-        apiAddress(this.state.address).then((address)=>{
+        let address = this.state.address;
+        address.country = "中国";
+        address.zipcode = "200000";
+        apiAddress(address).then((address)=>{
             this.props.overHandler(address);
         });
 
