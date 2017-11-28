@@ -17,6 +17,6 @@ class AddressDefaultApi(LycApiBaseView):
     serializer_class = AddressSerializer
     http_method_names = ["get"]
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> Response:
         user: User = request.user
         return Response(self.serializer_class(user.address).data)

@@ -28,7 +28,6 @@ interface Props{
 export default class AddressComponent extends React.Component<Props, State>{
 
     private showingAddressEdit: boolean;
-    private selectedAddress: Address;
 
     constructor(p: Props){
         super(p);
@@ -49,7 +48,6 @@ export default class AddressComponent extends React.Component<Props, State>{
             showAddressEdit: false,
             selectedAddress: address
         };
-        this.selectedAddress = address;
     }
 
     componentWillMount(){
@@ -80,7 +78,6 @@ export default class AddressComponent extends React.Component<Props, State>{
                         <div className={STYLE.name}>{item.name}</div>
                         <div className={STYLE.iconEdit} onClick={()=>{
                             this.showingAddressEdit = true;
-                            this.selectedAddress = item;
                             this.setState({showAddressEdit: true, selectedAddress: item});
                         }}>
                             <img src={ICON_ADDR_EDIT}/>
@@ -89,7 +86,7 @@ export default class AddressComponent extends React.Component<Props, State>{
                     </div>
                     <div className={STYLE.item}>
                         <div className={STYLE.detail}>
-                            {item.detail}
+                            {item.province} {item.city} {item.area} {item.detail}
                         </div>
                     </div>
                 </div>

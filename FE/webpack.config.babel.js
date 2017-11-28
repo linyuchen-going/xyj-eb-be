@@ -5,7 +5,7 @@
 import path from 'path'
 import fs from 'fs'
 
-import htmlPlugin from 'html-webpack-plugin'
+import HtmlPlugin from 'html-webpack-plugin'
 
 // 是否调试环境
 let DEBUG = process.argv.find((i)=> i === '-p' ) == null;
@@ -19,7 +19,7 @@ const config = {
     },
     output:{
         path: path.resolve(__dirname, "build"),
-        filename: '[name][hash].js'
+        filename: '[name]-[hash].js'
     },
     resolve: {
         extensions:[".js", ".ts", ".tsx" ]
@@ -56,13 +56,12 @@ const config = {
         ]
     },
     plugins:[
-        new htmlPlugin({
+        new HtmlPlugin({
+            publicPath: (DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"),
             template: path.resolve(__dirname, "src/tpl/index.html"),
-            title: "首页",
-            publicPath: DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"
+            title: "首页"
         })
-    ],
-    target: "web"
+    ]
 };
 
 if (DEBUG) {

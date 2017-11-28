@@ -13,6 +13,7 @@ class ProductApi(LycApiBaseView):
     serializer_class = ProductSerializer
     http_method_names = ['get']
     auth_http_method_names = []
+    permission_classes = []
 
     def get(self, request, *args, **kwargs) -> Response:
         return Response(self.serializer_class(self.model_class.objects.filter(id=kwargs.get("id")).first()).data)

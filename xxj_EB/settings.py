@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rest_api.middleware.DisableCSRFCheck',
+    'user.debug_middleware.DebugMiddleWare'
 ]
 
 ROOT_URLCONF = 'xxj_EB.urls'
@@ -141,4 +142,5 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8001',
     'localhost:8001',
+    'www.kxshanghai.com'
 )
