@@ -4,6 +4,7 @@ import {Product} from '../../product/detail'
 import AddressSelectorComponent, {} from '../../address/select'
 import {ApiResAddress as Address} from "../../../api/user/address/responses";
 import {apiAddressDefault} from "../../../api/user/address/index";
+import {apiProductDetail} from "../../../api/product/index";
 
 let ICON_POSITION = require('./img/position.png');
 
@@ -16,18 +17,16 @@ interface State{
 }
 
 export default class OrderConfirm extends React.Component<Props, State>{
-    constructor(p: Props){
+    private productId: number;
+    constructor(p: any){
         super(p);
+        this.productId = p.match.params.productId;
         let product: Product = {
             id: 0,
-            name: "日本进口全球限量美容仪",
-            describe: `
-<img width="100%" src="http://oua8rae54.bkt.clouddn.com/test/test2.png"/>
-<img width="100%" src="http://oua8rae54.bkt.clouddn.com/test/test.png"/>
-`,
-            price: 11000,
-            first_pay_price: 0,
-            cover: "http://n.sinaimg.cn/transform/20150815/Sk2_-fxfxraw8837077.jpg"
+            name: "加载中...",
+            describe: ` `,
+            price: 0,
+            cover: ""
         };
         this.state = {
             product: product,
@@ -51,12 +50,23 @@ export default class OrderConfirm extends React.Component<Props, State>{
         if(!this.state.inviteCode){
             return alert("请先填入邀请码");
         }
+        if (!this.state.address.id){
+            return alert("请先填写收货人信息");
+        }
+        alert("付款功能暂时未完成");
+        location.href = "/#/"
     }
 
     componentWillMount(){
         apiAddressDefault().then((address)=>{
             this.setState({
                 address
+            })
+        });
+
+        apiProductDetail(this.productId).then((product)=>{
+            this.setState({
+                product
             })
         })
     }
@@ -110,7 +120,10 @@ export default class OrderConfirm extends React.Component<Props, State>{
 
                     <div className={STYLE.orderItem}>
                         <div className={STYLE.inviteCodeTitle}>邀请码</div>
-                        <input className={STYLE.inviteCode} onChange={(v)=>{this.setState({inviteCode: v.target.value})}}/>
+                        <input className={STYLE.inviteCode}
+                               onChange={(v)=>{this.setState({inviteCode: v.target.value})}}
+                               placeholder="在此填入邀请码"
+                        />
                     </div>
                     <div>
                         <div className={STYLE.totalPaymentTitle}>金额</div>

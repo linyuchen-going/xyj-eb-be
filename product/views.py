@@ -1,8 +1,7 @@
 # -*- coding:UTF-8 -*-
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
 from rest_api.rest_api_views import LycApiBaseView, PagesApi
-from ..models import Product
+from product.models import Product
 from .serializers import ProductSerializer
 
 __author__ = u"linyuchen"
@@ -13,7 +12,6 @@ class ProductApi(LycApiBaseView):
     model_class = Product
     serializer_class = ProductSerializer
     http_method_names = ['get']
-    permission_classes = []
     auth_http_method_names = []
 
     def get(self, request, *args, **kwargs) -> Response:

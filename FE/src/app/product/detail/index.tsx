@@ -15,18 +15,16 @@ interface State{
 }
 
 export default class ProductComponent extends React.Component<Props, State>{
-    constructor(p: Props){
+    private productId: number | null = null;
+
+    constructor(p: any){
         super(p);
         let product: Product = {
             id: 0,
-            name: "日本进口全球限量美容仪",
-            describe: `
-<img width="100%" src="http://oua8rae54.bkt.clouddn.com/test/test2.png"/>
-<img width="100%" src="http://oua8rae54.bkt.clouddn.com/test/test.png"/>
-`,
+            name: "加载中...",
+            describe: ` `,
             price: 11000,
-            first_pay_price: 0,
-            cover: "http://n.sinaimg.cn/transform/20150815/Sk2_-fxfxraw8837077.jpg"
+            cover: ""
         };
         this.state = {
             product: product,
@@ -35,9 +33,8 @@ export default class ProductComponent extends React.Component<Props, State>{
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.getAllProducts();
-        this.getProductData(1);
     }
 
     getProductData(id: number){
@@ -55,7 +52,10 @@ export default class ProductComponent extends React.Component<Props, State>{
             (res: ApiResProducts)=>{
                 this.setState({
                     products: res.results
-                })
+                });
+                if (!this.productId){
+                    this.getProductData(res.results[0].id);
+                }
             }
         )
     }
@@ -107,7 +107,7 @@ export default class ProductComponent extends React.Component<Props, State>{
                     <div className={STYLE.describe} dangerouslySetInnerHTML={{__html: describe}}/>
                 </div>
                 <div>
-                    <div className={STYLE.shopBtn}>
+                    <div className={STYLE.shopBtn} onClick={()=>{location.href=`/#/order-confirm/${this.state.product.id}`}}>
                         立即购买
                     </div>
                 </div>

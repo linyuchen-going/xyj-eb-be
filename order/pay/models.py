@@ -8,4 +8,5 @@ __doc__ = u""
 
 class PayOrder(models.Model):
     create_time = models.DateTimeField(default=timezone.now)
+    payment = models.FloatField()  # 付款金额，单位元
     paid = models.BooleanField()

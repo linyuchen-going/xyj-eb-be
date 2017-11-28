@@ -4,7 +4,6 @@ export interface ApiResProductDetail{
     name: string;
     describe: string;
     price: number;
-    first_pay_price: number;
     cover: string;
 }
 

@@ -15,7 +15,7 @@ ReactDOM.render((
     <HashRouter>
         <Switch>
             <Route path="/" exact component={ProductComponent}/>
-            <Route path="/order-confirm" exact component={OrderConfirmComponent}/>
+            <Route path="/order-confirm/:productId" exact component={OrderConfirmComponent}/>
             <Route path="/address-edit" exact component={AddressEditComponent}/>
             <Route path="/address-select" exact component={AddressSelectComponent}/>
             <Route path="/invite-code" exact component={InviteCordsComponent}/>

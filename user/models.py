@@ -1,6 +1,7 @@
 import typing
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from .address.models import Address
 
 
 class UserManager(BaseUserManager):
@@ -17,6 +18,8 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
+    invite_codes = models.ManyToManyField("invite_code.InviteCode", blank=True)
+    address = models.ForeignKey(Address, null=True, blank=True)
     mobile = models.CharField(max_length=11, unique=True)
     nick = models.CharField(max_length=32, null=True, blank=True)
     wxopenid = models.CharField(max_length=64, unique=True, null=True, blank=True)
