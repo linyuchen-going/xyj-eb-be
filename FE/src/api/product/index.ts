@@ -1,6 +1,6 @@
 import requests from '../../utils/requests'
-import * as ApiUrls from './urls'
-import * as ApiRes from './responses'
+import * as ApiUrls from './url'
+import * as ApiRes from './response'
 
 
 export function apiProductDetail(id: number): Promise<ApiRes.ApiResProductDetail> {

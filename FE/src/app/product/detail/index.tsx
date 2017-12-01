@@ -1,7 +1,9 @@
 import * as React from 'react'
+import {Link} from 'react-router-dom'
 import * as STYLE from './style.css'
 import * as apiProduct from '../../../api/product'
-import {ApiResProductDetail, ApiResProducts} from "../../../api/product/responses";
+import {ApiResProductDetail, ApiResProducts} from "../../../api/product/response";
+import * as RouterUrls from "../../router/urls";
 
 
 interface Props{}
@@ -107,7 +109,7 @@ export default class ProductComponent extends React.Component<Props, State>{
                     <div className={STYLE.describe} dangerouslySetInnerHTML={{__html: describe}}/>
                 </div>
                 <div>
-                    <div className={STYLE.shopBtn} onClick={()=>{location.href=`/#/order-confirm/${this.state.product.id}`}}>
+                    <div className={STYLE.shopBtn} onClick={()=>RouterUrls.go(RouterUrls.orderConfirm(this.state.product.id))}>
                         立即购买
                     </div>
                 </div>

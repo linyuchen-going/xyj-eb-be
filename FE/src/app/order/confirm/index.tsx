@@ -1,14 +1,20 @@
 import * as React from 'react'
+import * as ReactRouter from 'react-router-dom'
 import * as STYLE from './style.css'
 import {Product} from '../../product/detail'
 import AddressSelectorComponent, {} from '../../address/select'
-import {ApiResAddress as Address} from "../../../api/user/address/responses";
-import {apiAddressDefault} from "../../../api/user/address/index";
-import {apiProductDetail} from "../../../api/product/index";
+import {ApiResAddress as Address} from "../../../api/user/address/response";
+import * as AddressApi from "../../../api/user/address/index";
+import * as ProductApi from "../../../api/product/index";
+import * as OrderApi from "../../../api/order/index";
+import {OrderConfirmParam} from "../../router/urls";
+import * as RouterUrls from '../../router/urls'
 
 let ICON_POSITION = require('./img/position.png');
 
-interface Props{}
+interface Props extends ReactRouter.RouteComponentProps<OrderConfirmParam>{
+
+}
 interface State{
     product: Product;
     inviteCode: string;
@@ -16,9 +22,11 @@ interface State{
     address: Address;
 }
 
+
+
 export default class OrderConfirm extends React.Component<Props, State>{
     private productId: number;
-    constructor(p: any){
+    constructor(p: Props){
         super(p);
         this.productId = p.match.params.productId;
         let product: Product = {
@@ -53,18 +61,23 @@ export default class OrderConfirm extends React.Component<Props, State>{
         if (!this.state.address.id){
             return alert("请先填写收货人信息");
         }
-        alert("付款功能暂时未完成");
-        location.href = "/#/"
+        OrderApi.newProductOrder({
+            address: this.state.address.id,
+            product: this.productId,
+            invite_code: this.state.inviteCode
+        }).then((res)=>{
+            RouterUrls.go(RouterUrls.orderConfirm(res.id));
+        });
     }
 
     componentWillMount(){
-        apiAddressDefault().then((address)=>{
+        AddressApi.apiAddressDefault().then((address)=>{
             this.setState({
                 address
             })
         });
 
-        apiProductDetail(this.productId).then((product)=>{
+        ProductApi.apiProductDetail(this.productId).then((product)=>{
             this.setState({
                 product
             })

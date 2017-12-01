@@ -6,16 +6,21 @@ import path from 'path'
 import fs from 'fs'
 
 import HtmlPlugin from 'html-webpack-plugin'
+import CONFIG_DEBUG from './src/config/debug'
 
 // 是否调试环境
 let DEBUG = process.argv.find((i)=> i === '-p' ) == null;
 
-fs.writeFile(path.join(__dirname, "src/config/debug.ts"), `export default ${DEBUG ? "true" : "false"}`);
+if (DEBUG !== CONFIG_DEBUG){
+    fs.writeFile(path.join(__dirname, "src/config/debug.js"), `export default ${DEBUG ? "true" : "false"}`);
+}
+
 
 const config = {
     context: path.join(__dirname, 'src'),
     entry:{
-        "index": ["./app/index.tsx"]
+        "index": ["./app/index.tsx"],
+        "backend": ["./app/backend/index.tsx"]
     },
     output:{
         path: path.resolve(__dirname, "build"),
@@ -36,11 +41,22 @@ const config = {
             },
             {
                 test: /\.css$/,
+                exclude: /antd/,
                 loaders: [
                     'style-loader',
-                    'css-loader?module&localIdentName=[name]-[local]-[hash:8]'
+                    'css-loader?module&localIdentName=[name]-[local]-[hash:8]',
                 ]
             },
+
+            {
+              test: /\.css$/,
+              include: /antd/,
+              loaders: [
+                'style-loader',
+                'css-loader',
+              ]
+            },
+
             {
                 test: /\.tsx?$/,
                 loader:[
@@ -56,11 +72,18 @@ const config = {
         ]
     },
     plugins:[
+        // new HtmlPlugin({
+        //     publicPath: (DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"),
+        //     template: path.resolve(__dirname, "src/tpl/index.html"),
+        //     chunks: ["index"],
+        //     filename: "index.html"
+        // }),
         new HtmlPlugin({
-            publicPath: (DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"),
-            template: path.resolve(__dirname, "src/tpl/index.html"),
-            title: "首页"
-        })
+          publicPath: (DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"),
+          template: path.resolve(__dirname, "src/tpl/backend.html"),
+          chunks: ["backend"],
+          filename: "backend.html"
+        }),
     ]
 };
 

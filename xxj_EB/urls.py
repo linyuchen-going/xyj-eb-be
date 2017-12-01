@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^api/product/', include("product.urls")),
     url(r'^api/user/', include("user.urls")),
     url(r'^api/order/', include("order.urls")),
+    url(r'^api/backend/', include("backend.urls")),
 ]

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as STYLE from './style.css'
-import {ApiResAddress as Address} from "../../../api/user/address/responses";
+import {ApiResAddress as Address} from "../../../api/user/address/response";
 import {apiAddressList} from "../../../api/user/address/index";
 import AddressEditComponent from '../edit'
 
@@ -28,11 +28,12 @@ interface Props{
 export default class AddressComponent extends React.Component<Props, State>{
 
     private showingAddressEdit: boolean;
+    private newAddress: Address;
 
     constructor(p: Props){
         super(p);
         this.showingAddressEdit = false;
-        let address: Address = {
+        this.newAddress = {
             id: null,
             name: "",
             mobile: "",
@@ -46,7 +47,7 @@ export default class AddressComponent extends React.Component<Props, State>{
         this.state = {
             items: [],
             showAddressEdit: false,
-            selectedAddress: address
+            selectedAddress: this.newAddress
         };
     }
 
@@ -97,7 +98,7 @@ export default class AddressComponent extends React.Component<Props, State>{
                 <div className={STYLE.btnCancel} onClick={()=>this.props.btnCancelClick()}>X</div>
                 {items}
                 <div className={STYLE.bg} />
-                <div className={STYLE.btnNew} onClick={()=>{this.setState({showAddressEdit: true})}}>
+                <div className={STYLE.btnNew} onClick={()=>{this.setState({showAddressEdit: true, selectedAddress: this.newAddress})}}>
                     新建地址
                 </div>
             </div>

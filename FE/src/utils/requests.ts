@@ -10,7 +10,7 @@ class __Requests extends Requests{
                 successCallback(res.data);
             }
             else {
-                failCallback(res);
+                alert(res.msg);
             }
         });
     }

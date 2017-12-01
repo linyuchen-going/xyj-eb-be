@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {ApiResInviteCode} from "../../api/user/invite-code/responses";
+import {ApiResInviteCode} from "../../api/user/invite-code/response";
 import {apiInviteCodes} from "../../api/user/invite-code"
 import * as STYLE from './style.css'
 
@@ -46,6 +46,13 @@ export default class InviteCordsComponent extends React.Component<Props, State>{
                 </div>
             )
         });
+        if (codeEles.length === 0){
+            return (
+                <div style={{"textAlign": "center"}}>
+                    您当前没有任何邀请码
+                </div>
+            )
+        }
         return (
             <div className={STYLE.container}>
                 <div className={STYLE.codeItems}>

@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'order',
     'image',
     'invite_code',
-    'sms'
+    'sms',
+    'backend'
 ]
 
 MIDDLEWARE = [

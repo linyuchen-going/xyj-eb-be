@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as STYLE from './style.css'
-import {ApiResAddress as Address} from "../../../api/user/address/responses";
+import {ApiResAddress as Address} from "../../../api/user/address/response";
 import {apiAddress} from "../../../api/user/address/index";
 
 interface OverHandler{

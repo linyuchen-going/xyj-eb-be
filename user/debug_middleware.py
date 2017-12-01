@@ -10,4 +10,3 @@ class DebugMiddleWare(MiddlewareMixin):
     def process_request(request):
         if DEBUG:
             request.user = User.objects.first()
-
