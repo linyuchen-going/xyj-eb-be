@@ -44,8 +44,7 @@ INSTALLED_APPS = [
     'order',
     'image',
     'invite_code',
-    'sms',
-    'backend'
+    'backend',
 ]
 
 MIDDLEWARE = [
@@ -138,6 +137,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'user.User'
+MEDIA_ROOT = '/media/'
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (

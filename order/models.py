@@ -30,4 +30,5 @@ class ProductOrder(models.Model):
     user = models.ForeignKey("user.User")
     status = models.ForeignKey(ProductOrderStatus)
     address = models.ForeignKey("user.Address")
+    sf_no = models.CharField(max_length=30, null=True, blank=True)  # 顺丰单号
 

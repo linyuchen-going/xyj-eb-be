@@ -9,7 +9,7 @@ class ChangeOrderStatusSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductOrder
-        fields = ("id", "status")
+        fields = ("id", "status", "sf_no")
 
 
 class OrderStatusSerializer(serializers.ModelSerializer):

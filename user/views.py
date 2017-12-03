@@ -1,22 +1,23 @@
 from django.contrib.auth import login
 from rest_framework.request import Request
 from rest_framework.response import Response
-from sms.utils import verify_code
+
+from rest_api.rest_api_views import ApiBaseView
 from user.models import User
-from rest_api.rest_api_views import LycApiBaseView
+from verify_code.sms.auth import verify_sms_code
 
 
-class LoginWithSmsView(LycApiBaseView):
+class LoginWithSmsView(ApiBaseView):
 
     http_method_names = ["post"]
     auth_http_method_names = []
 
-    def get(self, request: Request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs):
         mobile = request.data.get("mobile")
         code = request.data.get("code")
-        if verify_code(mobile, code):
+        if verify_code(request, code):
             user = User.objects.get_or_create(mobile=mobile)[0]
             login(request, user)
             return Response("ok")
 
-        return self.err_response("验证码错误")
+        return self.err_response("手机验证码错误")

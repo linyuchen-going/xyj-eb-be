@@ -7,5 +7,5 @@ from .views import LoginWithSmsView
 urlpatterns = [
     url("^address/", include(address_urls)),
     url("^invite-code/", include(invite_code_urls)),
-    url("^login/sms$", LoginWithSmsView),
+    url("^login/sms$", LoginWithSmsView.as_view()),
 ]
