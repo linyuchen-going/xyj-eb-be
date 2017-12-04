@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from server_config import DEBUG, DATABASES
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'f8m3e^7@#=*i%(=#^sgs(p=-l3@iy@d)=3036re$a+ca#c_!7g'
 
 # SECURITY WARNING: don't run with debug turned on in production!localhost
-DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.2.5"]
 
@@ -80,17 +80,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'xxj_EB.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
