@@ -25,7 +25,7 @@ SECRET_KEY = 'f8m3e^7@#=*i%(=#^sgs(p=-l3@iy@d)=3036re$a+ca#c_!7g'
 
 # SECURITY WARNING: don't run with debug turned on in production!localhost
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.2.5"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.2.5", "www.kxshanghai.com"]
 
 
 # Application definition
