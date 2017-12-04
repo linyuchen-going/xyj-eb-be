@@ -8,5 +8,10 @@ class DebugMiddleWare(MiddlewareMixin):
 
     @staticmethod
     def process_request(request):
+        """
+
+        :param request:
+        :return:
+        """
         if DEBUG:
             request.user = User.objects.first()

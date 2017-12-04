@@ -1,5 +1,5 @@
 import requests from '../../../utils/requests'
-import * as ApiUrls from './urls'
+import * as ApiUrls from './url'
 import * as ApiRes from './response'
 
 

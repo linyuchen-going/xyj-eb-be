@@ -14,6 +14,7 @@ export const addressEdit = '/address-edit';
 export const addressSelect = '/address-select';
 export const inviteCode = '/invite-code';
 export const orders = `/orders`;
+export const logout = `/logout`;
 
 const backendPath = `/backend`;
 export const backendOrders = `${backendPath}/orders`;

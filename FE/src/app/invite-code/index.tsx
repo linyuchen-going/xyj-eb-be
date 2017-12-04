@@ -2,6 +2,7 @@ import * as React from 'react'
 import {ApiResInviteCode} from "../../api/user/invite-code/response";
 import {apiInviteCodes} from "../../api/user/invite-code"
 import * as STYLE from './style.css'
+import LoginSmsComponent from '../login'
 
 
 interface State{
@@ -49,12 +50,14 @@ export default class InviteCordsComponent extends React.Component<Props, State>{
         if (codeEles.length === 0){
             return (
                 <div style={{"textAlign": "center"}}>
+                    <LoginSmsComponent/>
                     您当前没有任何邀请码
                 </div>
             )
         }
         return (
             <div className={STYLE.container}>
+                <LoginSmsComponent/>
                 <div className={STYLE.codeItems}>
                     {codeEles}
                 </div>

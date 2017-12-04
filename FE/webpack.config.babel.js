@@ -72,17 +72,26 @@ const config = {
         ]
     },
     plugins:[
-        // new HtmlPlugin({
-        //     publicPath: (DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"),
-        //     template: path.resolve(__dirname, "src/tpl/index.html"),
-        //     chunks: ["index"],
-        //     filename: "index.html"
-        // }),
+        new HtmlPlugin({
+            publicPath: (DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"),
+            template: path.resolve(__dirname, "src/tpl/mobile.html"),
+            chunks: ["index"],
+            filename: "index.html",
+            title: "魁星代购"
+        }),
         new HtmlPlugin({
           publicPath: (DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"),
-          template: path.resolve(__dirname, "src/tpl/backend.html"),
+          template: path.resolve(__dirname, "src/tpl/pc.html"),
+          chunks: ["index"],
+          filename: "index-pc.html",
+          title: "魁星代购"
+        }),
+        new HtmlPlugin({
+          publicPath: (DEBUG ? "" : "http://oua8rae54.bkt.clouddn.com/xyj_eb/"),
+          template: path.resolve(__dirname, "src/tpl/pc.html"),
           chunks: ["backend"],
-          filename: "backend.html"
+          filename: "backend.html",
+          title: "后台管理"
         }),
     ]
 };

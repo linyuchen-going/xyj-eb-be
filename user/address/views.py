@@ -10,6 +10,7 @@ class AddressApi(LycApiBaseView):
     model_class = Address
     serializer_class = AddressSerializer
     http_method_names = ["post", "get"]
+    auth_http_method_names = ["get", "post"]
 
     def get_queryset(self):
         return self.request.user.address.all()
@@ -31,6 +32,7 @@ class AddressDefaultApi(LycApiBaseView):
     model_class = Address
     serializer_class = AddressSerializer
     http_method_names = ["get"]
+    auth_http_method_names = ["get"]
 
     def get(self, request, *args, **kwargs) -> Response:
         user: User = request.user

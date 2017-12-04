@@ -2,12 +2,13 @@ import * as React from 'react';
 import {ApiResProductOrder} from "../../../api/order/response";
 import * as OrderApi from '../../../api/order/index';
 import * as STYLE from './style.css';
-
+import LoginSmsComponent from '../../login'
 
 interface State{
     orders: ApiResProductOrder[];
 }
 interface Props{}
+
 
 export default class OrderListComponent extends React.Component<Props, State>{
 
@@ -64,11 +65,17 @@ export default class OrderListComponent extends React.Component<Props, State>{
         });
 
         if (items.length === 0){
-            return (<div> 暂无订单 </div>)
+            return (
+                <div>
+                    <LoginSmsComponent/>
+                    暂无订单
+                </div>
+            )
         }
 
         return (
             <div>
+                <LoginSmsComponent/>
                 {items}
             </div>
         )

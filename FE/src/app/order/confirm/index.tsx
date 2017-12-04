@@ -9,6 +9,7 @@ import * as ProductApi from "../../../api/product/index";
 import * as OrderApi from "../../../api/order/index";
 import {OrderConfirmParam} from "../../router/urls";
 import * as RouterUrls from '../../router/urls'
+import LoginSmsComponent from '../../login'
 
 let ICON_POSITION = require('./img/position.png');
 
@@ -99,6 +100,7 @@ export default class OrderConfirm extends React.Component<Props, State>{
 
         return (
             <div className={STYLE.confirm}>
+                <LoginSmsComponent />
                 <div className={STYLE.addressContainer} onClick={()=>{this.setState({showAddressSelector: true})}}>
                     <div className={STYLE.iconPosition}><img src={ICON_POSITION}/></div>
                     <div className={STYLE.address}>

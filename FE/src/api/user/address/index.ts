@@ -1,7 +1,7 @@
 import requests from '../../../utils/requests'
 import * as ApiRes from './response'
 import * as ApiQuery from './query'
-import * as ApiUrls from './urls'
+import * as ApiUrls from './url'
 
 
 export function apiAddressDefault(): Promise<ApiRes.ApiResAddressDefault> {

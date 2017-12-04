@@ -25,7 +25,7 @@ SECRET_KEY = 'f8m3e^7@#=*i%(=#^sgs(p=-l3@iy@d)=3036re$a+ca#c_!7g'
 # SECURITY WARNING: don't run with debug turned on in production!localhost
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.2.5"]
 
 
 # Application definition
@@ -142,6 +142,7 @@ MEDIA_ROOT = '/media/'
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8001',
+    '192.168.2.5:8001',
     'localhost:8001',
     'www.kxshanghai.com'
 )
