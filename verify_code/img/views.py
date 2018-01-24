@@ -10,5 +10,5 @@ class ImgCodeApi(View):
 
     def get(self, request, *args, **kwargs):
         code, image = ImageCodeUtil().gene_code()
-        request.session[IMG_CODE_SESSION_KEY] = code
+        request.session[IMG_CODE_SESSION_KEY] = code.lower()
         return HttpResponse(image, "image/png")

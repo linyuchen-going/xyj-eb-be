@@ -14,4 +14,5 @@ class DebugMiddleWare(MiddlewareMixin):
         :return:
         """
         if DEBUG:
-            request.user = User.objects.first()
+            # request.user = User.objects.first()
+            pass

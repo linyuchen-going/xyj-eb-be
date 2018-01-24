@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
 import os
 from server_config import DEBUG, DATABASES
 
@@ -25,7 +24,7 @@ SECRET_KEY = 'f8m3e^7@#=*i%(=#^sgs(p=-l3@iy@d)=3036re$a+ca#c_!7g'
 
 # SECURITY WARNING: don't run with debug turned on in production!localhost
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.2.5", "www.kxshanghai.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.2.5", "192.168.1.4", "www.kxshanghai.com"]
 
 
 # Application definition
