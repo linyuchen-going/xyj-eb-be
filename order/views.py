@@ -66,8 +66,11 @@ class NewProductOrderApi(LycApiBaseView):
         response = super(NewProductOrderApi, self).post(request, *args, **kwargs)
 
         # 创建订单失败时删除地址副本
-        if not response.data.get("id"):
-            address.delete()
+        try:
+            if not response.data.get("id"):
+                address.delete()
+        except AttributeError:
+            pass
 
         return response
 
