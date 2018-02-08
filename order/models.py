@@ -26,7 +26,7 @@ class ProductOrder(models.Model):
     pay_order = models.ForeignKey(PayOrder, null=True, blank=True)
     product = models.ForeignKey("product.Product")
     num = models.IntegerField(default=1)
-    invite_code = models.CharField(max_length=CODE_LENGTH, null=False)
+    invite_code = models.CharField(max_length=CODE_LENGTH, null=True)
     user = models.ForeignKey("user.User")
     status = models.ForeignKey(ProductOrderStatus)
     address = models.ForeignKey("user.Address")
