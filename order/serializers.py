@@ -34,6 +34,7 @@ class NewProductOrderSerializer(serializers.ModelSerializer):
     status = serializers.PrimaryKeyRelatedField(queryset=ProductOrderStatus.objects.all())
     address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all())
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    invite_code = serializers.CharField(allow_null=True, allow_blank=True)
 
     class Meta:
         model = ProductOrder
