@@ -84,6 +84,9 @@ class DinPay(object):
             "order_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
         pdata.update(params.to_dict())
+        for k in pdata:
+            if not pdata[k]:
+                del pdata[k]
         return pdata
 
     def create_order(self, params: OrderPayParams):
@@ -101,8 +104,6 @@ class DinPay(object):
         sign_str_list = []
         for k in sorted(pdata.keys()):
             if k == "sign_type":
-                continue
-            if not pdata[k]:
                 continue
             sign_str_list.append("%s=%s" % (k, pdata[k]))
         sign_str = "&".join(sign_str_list).encode("utf8")
