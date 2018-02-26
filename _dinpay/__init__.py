@@ -84,10 +84,11 @@ class DinPay(object):
             "order_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
         pdata.update(params.to_dict())
+        new_data = {}
         for k in pdata:
-            if not pdata[k]:
-                del pdata[k]
-        return pdata
+            if pdata[k]:
+                new_data[k] = pdata[k]
+        return new_data
 
     def create_order(self, params: OrderPayParams):
         """
