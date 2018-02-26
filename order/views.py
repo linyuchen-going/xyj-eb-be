@@ -82,9 +82,9 @@ class NewProductOrderApi(LycApiBaseView):
             product = order.product
             pay_way = request.data.get("pay_way")
             if pay_way == DinPayWay.ALIPAY:
-                response.data["pay_data"] = create_alipay(product.price, product.name)
+                response.data["pay_data"] = create_alipay("%.2f" % product.price, product.name)
             elif pay_way == DinPayWay.WECHAT:
-                response.data["pay_data"] = create_wechatpay(product.price, product.name,
+                response.data["pay_data"] = create_wechatpay("%.2f" % product.price, product.name,
                                                              wechat_open_id=request.user.wxopenid)
 
         return response

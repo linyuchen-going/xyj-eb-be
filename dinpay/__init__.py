@@ -54,12 +54,12 @@ def create_wechatpay(money, product_name, wechat_open_id):
 test_data = {
     "input_charset": "UTF-8",
     "interface_version": "V3.0",
-    "merchant_code": "1111110166",
-    "order_no": "1",
-    "order_time": "2018-02-26 00:00:00",
-    "order_amount": "0.1",
-    "product_name": "testpay",
-    "notify_url": "http://www.kxshanghai.com/api/verify-code/sms",
+    "merchant_code": "1118018253",
+    "order_no": "55c96a12ee83494a966528d1266e9556",
+    "order_time": "2018-02-26 10:49:19",
+    "order_amount": "5000",
+    "product_name": "华硕高端台式机显卡1080ti",
+    "notify_url": "http://www.kxshanghai.com/dinpay/notify",
     "service_type": "alipay_h5"
 }
-# print(__dinpay.make_sign(test_data))
+print(__dinpay.make_sign(test_data))

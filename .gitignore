@@ -1,4 +1,4 @@
-.pyc
+*.pyc
 __pycache__/
 venv/
 vpy/
@@ -9,4 +9,3 @@ db.sqlite3
 .DS_Store
 server_config.py
 .vscode/
-static/*
