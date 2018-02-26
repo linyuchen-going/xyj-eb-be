@@ -12,7 +12,7 @@ class Product(models.Model):
     stock = models.IntegerField()
     create_time = models.DateTimeField(default=timezone.now)
     describe = models.TextField()  # HTML代码
-    cover = models.ForeignKey("image.Image")
+    cover = models.ForeignKey("image.Image", on_delete=None)
     images = models.ManyToManyField("image.Image", related_name="images_product", blank=True)
 
     def __str__(self):

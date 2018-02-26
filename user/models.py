@@ -19,7 +19,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     invite_codes = models.ManyToManyField("invite_code.InviteCode", blank=True)
-    default_address = models.ForeignKey(Address, null=True, blank=True, related_name="user")
+    default_address = models.ForeignKey(Address, null=True, blank=True, related_name="user", on_delete=models.CASCADE)
     address = models.ManyToManyField(Address, blank=True, related_name="users")
     mobile = models.CharField(max_length=11, unique=True)
     nick = models.CharField(max_length=32, null=True, blank=True)

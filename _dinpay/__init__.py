@@ -19,6 +19,7 @@ class PayParams(object):
     notify_url: str = ""  # 支付结果通知url，支付完成后会post一些数据到此url
     return_url: str = ""  # 支付完成后跳转的页面url
     sign_type: str = "RSA-S"
+    service_type = ""
 
     def __init__(self, amount: float, product_name: str, notify_url: str, return_url: str):
         self.amount = amount
@@ -32,7 +33,8 @@ class PayParams(object):
             "product_name": self.product_name,
             "notify_url": self.notify_url,
             "return_url": self.return_url,
-            "sign_type": self.sign_type
+            "sign_type": self.sign_type,
+            "service_type": self.service_type
         }
 
 
@@ -47,12 +49,11 @@ class WechatPayParams(PayParams):
     def to_dict(self):
         data = super(WechatPayParams, self).to_dict()
         data["open_id"] = self.open_id
-        data["service_type"] = self.service_type
         return data
 
 
 class AliPayParams(PayParams):
-    server_type = DinPayWay.ALIPAY
+    service_type = DinPayWay.ALIPAY
 
 
 OrderPayParams = TypeVar("OrderPayParams", WechatPayParams, AliPayParams)
@@ -76,6 +77,7 @@ class DinPay(object):
         """
 
         pdata = {
+            "merchant_code": self.merchant_code,
             "order_no": uuid.uuid4().hex,
             "interface_version": "V3.0",
             "input_charset": "UTF-8",
@@ -91,14 +93,16 @@ class DinPay(object):
         :return: dict, post的各项参数
         """
         pdata = self.__create_order(params)
-        sign = self.__make_sign(pdata)
+        sign = self.make_sign(pdata)
         pdata["sign"] = sign
         return pdata
 
-    def __make_sign(self, pdata: dict):
+    def make_sign(self, pdata: dict):
         sign_str_list = []
         for k in sorted(pdata.keys()):
             if k == "sign_type":
+                continue
+            if not pdata[k]:
                 continue
             sign_str_list.append("%s=%s" % (k, pdata[k]))
         sign_str = "&".join(sign_str_list).encode("utf8")

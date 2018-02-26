@@ -9,3 +9,6 @@ DATABASES = {
 }
 
 DEBUG = True
+
+HTTP_HOST = "http://forward.linyuchen.net"
+DINPAY_NOTIFY_URL = HTTP_HOST + "/dinpay/notify"

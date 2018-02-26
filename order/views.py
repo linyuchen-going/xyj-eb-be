@@ -4,6 +4,7 @@ from .serializers import ProductOrderSerializer, NewProductOrderSerializer
 from .models import ProductOrder, ProductOrderStatus
 from user.models import Address, User
 from invite_code.models import InviteCode
+from dinpay import DinPayWay, create_alipay, create_wechatpay
 
 
 class ProductOrdersApi(LycApiBaseView):
@@ -65,12 +66,26 @@ class NewProductOrderApi(LycApiBaseView):
 
         response = super(NewProductOrderApi, self).post(request, *args, **kwargs)
 
-        # 创建订单失败时删除地址副本
+        order: ProductOrder = None
         try:
-            if not response.data.get("id"):
-                address.delete()
+            order = self.model_class.objects.filter(id=response.data.get("id")).first()
         except AttributeError:
             pass
+
+        # 创建订单失败时删除地址副本
+        if not order:
+            address.delete()
+
+        if order:
+
+            # 支付方式
+            product = order.product
+            pay_way = request.data.get("pay_way")
+            if pay_way == DinPayWay.ALIPAY:
+                response.data["pay_data"] = create_alipay(product.price, product.name)
+            elif pay_way == DinPayWay.WECHAT:
+                response.data["pay_data"] = create_wechatpay(product.price, product.name,
+                                                             wechat_open_id=request.user.wxopenid)
 
         return response
 

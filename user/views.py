@@ -1,5 +1,6 @@
 from django.http.response import HttpResponse
 from django.contrib.auth import login, logout
+from django.conf import settings
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_api.rest_api_views import ApiBaseView
@@ -30,7 +31,7 @@ class LoginStatusApi(ApiBaseView):
     auth_http_method_names = []
 
     def get(self, request, *args, **kwargs):
-        status = request.user.is_authenticated()
+        status = request.user.is_authenticated
         return Response({"status": status})
 
 
@@ -40,4 +41,15 @@ class LogoutApi(ApiBaseView):
 
     def get(self, request, *args, **kwargs):
         logout(request)
+        return Response("ok")
+
+
+class LoginTestApi(ApiBaseView):
+    http_method_names = ["get"]
+    auth_http_method_names = []
+
+    def get(self, request, *args, **kwargs):
+        if settings.DEBUG:
+            user = User.objects.first()
+            login(request, user)
         return Response("ok")
