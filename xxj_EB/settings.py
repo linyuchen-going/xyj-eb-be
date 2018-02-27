@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 import os
+import server_config
 from server_config import DEBUG, DATABASES
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -45,7 +46,8 @@ INSTALLED_APPS = [
     'invite_code',
     'backend',
     'dinpay',
-    'fe'
+    'fe',
+    '_wechatpub.django'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,13 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8001',
     'www.kxshanghai.com'
 )
+
+
+# 微信公众号配置
+
+WECHAT_PUB_SERVER_HTTP_HOST = server_config.HTTP_HOST
+WECHAT_PUB_APPID = server_config.WECHAT_APPID
+WECHAT_PUB_APPSECRET = server_config.WECHAT_APPSECRET
+WECHAT_PUB_APPTOKEN = server_config.WECHAT_APP_TOKEN
+
+WECHAT_PUB_QRCODE_URL = server_config.WECHAT_QRCODE_URL  # 公众号二维码

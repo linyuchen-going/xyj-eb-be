@@ -62,4 +62,4 @@ test_data = {
     "notify_url": "http://www.kxshanghai.com/dinpay/notify",
     "service_type": "alipay_h5"
 }
-print(__dinpay.make_sign(test_data))
+# print(__dinpay.make_sign(test_data))
