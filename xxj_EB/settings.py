@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'backend',
     'dinpay',
     'fe',
-    '_wechatpub.django'
+    '_wechatpub.django',
+    'wechatpub'
 ]
 
 MIDDLEWARE = [
@@ -140,6 +141,15 @@ CORS_ORIGIN_WHITELIST = (
     'www.kxshanghai.com'
 )
 
+# 邮件配置
+ADMINS = [("linyuchen", "lin.yu.chen@foxmail.com")]
+EMAIL_HOST = "smtp.mxhichina.com"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "notify@linyuchen.net"
+EMAIL_HOST_PASSWORD = "vXnhk8oGpbz"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = SERVER_EMAIL = EMAIL_HOST_USER
 
 # 微信公众号配置
 
@@ -149,3 +159,6 @@ WECHAT_PUB_APPSECRET = server_config.WECHAT_APPSECRET
 WECHAT_PUB_APPTOKEN = server_config.WECHAT_APP_TOKEN
 
 WECHAT_PUB_QRCODE_URL = server_config.WECHAT_QRCODE_URL  # 公众号二维码
+
+WECHAT_PAY_MCHID = server_config.WECHAT_PAY_MCHID
+WECHAT_PAY_KEY = server_config.WECHAT_PAY_KEY

@@ -1,10 +1,12 @@
+import uuid
 from rest_framework.response import Response
 from rest_api.rest_api_views import LycApiBaseView
-from .serializers import ProductOrderSerializer, NewProductOrderSerializer
-from .models import ProductOrder, ProductOrderStatus
+from .serializers import ProductOrderSerializer, NewProductOrderSerializer, ProductOrderCommnetSerializer
+from .models import ProductOrder, ProductOrderStatus, ProductOrderComment
 from user.models import Address, User
 from invite_code.models import InviteCode
-from dinpay import DinPayWay, create_alipay, create_wechatpay
+from wechatpub.pay.api import WechatPay
+from wechatpub.pay.models import WechatPayOrder
 
 
 class ProductOrdersApi(LycApiBaseView):
@@ -81,11 +83,18 @@ class NewProductOrderApi(LycApiBaseView):
             # 支付方式
             product = order.product
             pay_way = request.data.get("pay_way")
-            if pay_way == DinPayWay.ALIPAY:
-                response.data["pay_data"] = create_alipay("%.2f" % product.price, product.name)
-            elif pay_way == DinPayWay.WECHAT:
-                response.data["pay_data"] = create_wechatpay("%.2f" % product.price, product.name,
-                                                             wechat_open_id=request.user.wxopenid)
+            out_trade_no = uuid.uuid4().hex
+            WechatPay().create_order(order_summary=order.product.name, out_trade_no=out_trade_no,
+                                     money=product.price, to_user=order.user.wxopenid)
+            wechat_pay_order = WechatPayOrder(money=product.price)
+            wechat_pay_order.save()
+            order.wechat_pay_order = wechat_pay_order
+            order.save()
 
         return response
 
+
+class NewProductOrderCommentApi(LycApiBaseView):
+    serializer_class = ProductOrderCommnetSerializer
+    http_method_names = ["post"]
+    model_class = ProductOrderComment

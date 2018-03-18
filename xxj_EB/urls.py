@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from .views import main
-from _wechatpub.django.urls import urlpatterns as wechatpub_urls, wechat_html_auth_url
+from _wechatpub.django.urls import urlpatterns as wechatpub_urls
 
 urlpatterns = [
     url(r"^$", main),
@@ -27,5 +27,5 @@ urlpatterns = [
     url(r'^api/backend/', include("backend.urls")),
     url(r'^api/verify-code/', include("verify_code.urls")),
     url(r'^dinpay/', include("dinpay.urls")),
-    wechat_html_auth_url,
+    url(r'^wechatpub/', include("wechatpub.urls"))
 ] + wechatpub_urls
