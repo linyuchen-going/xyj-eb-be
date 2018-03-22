@@ -1,7 +1,6 @@
 # -*- coding:UTF-8 -*-
 
 from _dinpay import DinPay, AliPayParams, WechatPayParams, DinPayWay
-from server_config import DINPAY_NOTIFY_URL
 
 
 DINPAY_MERCHANT_PRIVATE_KEY = """-----BEGIN PRIVATE KEY-----
@@ -39,6 +38,8 @@ LnPr8gVT9g3PD10=
 
 __dinpay = DinPay("1118018253", DINPAY_MERCHANT_PRIVATE_KEY)
 # __dinpay = DinPay("1111110166", DINPAY_MERCHANT_PRIVATE_KEY)
+
+DINPAY_NOTIFY_URL = ''
 
 
 def create_alipay(money, product_name):

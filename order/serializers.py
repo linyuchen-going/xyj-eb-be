@@ -5,7 +5,7 @@ from rest_api.rest_api_field import NativeDateTimeField
 from .models import ProductOrder, ProductOrderStatus, ProductOrderComment
 from product.models import Product
 from product.serializers import ProductSerializer
-from .pay.serializers import PayOrderSerializer
+# from .pay.serializers import PayOrderSerializer
 from user.address.serializers import AddressSerializer
 from user.models import Address, User
 
@@ -20,13 +20,13 @@ class ProductOrderStatusSerializer(serializers.ModelSerializer):
 class ProductOrderSerializer(serializers.ModelSerializer):
     create_time = NativeDateTimeField()
     product = ProductSerializer()
-    pay_order = PayOrderSerializer()
+    # pay_order = PayOrderSerializer()
     status = ProductOrderStatusSerializer()
     address = AddressSerializer()
 
     class Meta:
         model = ProductOrder
-        fields = ["id", "create_time", "product", "pay_order", "status", "address", "create_time", "num", "sf_no"]
+        fields = ["id", "create_time", "product", "status", "address", "create_time", "num", "sf_no"]
 
 
 class NewProductOrderSerializer(serializers.ModelSerializer):

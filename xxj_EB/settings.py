@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'image',
     'invite_code',
     'backend',
-    'dinpay',
     'fe',
     '_wechatpub.django',
     'wechatpub'

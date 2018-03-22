@@ -1,5 +1,7 @@
 import uuid
 from rest_framework.response import Response
+from rest_framework.request import Request
+from django.http.request import HttpRequest
 from rest_api.rest_api_views import LycApiBaseView
 from .serializers import ProductOrderSerializer, NewProductOrderSerializer, ProductOrderCommnetSerializer
 from .models import ProductOrder, ProductOrderStatus, ProductOrderComment
@@ -7,6 +9,7 @@ from user.models import Address, User
 from invite_code.models import InviteCode
 from wechatpub.pay.api import WechatPay
 from wechatpub.pay.models import WechatPayOrder
+from wechatpub.api import WECHATPUB_API
 
 
 class ProductOrdersApi(LycApiBaseView):
@@ -42,7 +45,7 @@ class NewProductOrderApi(LycApiBaseView):
     http_method_names = ["post"]
     auth_http_method_names = ["post"]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs):
         request.data["status"] = ProductOrderStatus.objects.get(name=ProductOrderStatus.STATUS_WAIT_PAY).id
 
         # 检查invite_code
@@ -84,8 +87,9 @@ class NewProductOrderApi(LycApiBaseView):
             product = order.product
             pay_way = request.data.get("pay_way")
             out_trade_no = uuid.uuid4().hex
+            response.data["jssdk_config"] = WECHATPUB_API.jssdk_config(request.build_absolute_uri())
             WechatPay().create_order(order_summary=order.product.name, out_trade_no=out_trade_no,
-                                     money=product.price, to_user=order.user.wxopenid)
+                                     money=product.price, to_user=order.user.wxopenid, response_data=response.data)
             wechat_pay_order = WechatPayOrder(money=product.price)
             wechat_pay_order.save()
             order.wechat_pay_order = wechat_pay_order

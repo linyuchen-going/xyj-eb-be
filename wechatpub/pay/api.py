@@ -22,10 +22,13 @@ class WechatPay(WechatPayApiBase):
     def api_err_handle(self, err_code, err_msg):
         send_mail_to_admin("微信支付api出错", f"{err_code}: {err_msg}")
 
-    def create_order(self, order_summary, out_trade_no, money, product_id, to_user):
+    def create_order(self, order_summary, out_trade_no, money, product_id, to_user, response_data: dict):
+        def jssdk_callback(data):
+            response_data["wechat_pay_data"] = data
         success, err_code, err_msg = super(WechatPay, self).create_order(order_summary=order_summary,
                                                                          out_trade_no=out_trade_no,
                                                                          money=money, trade_type="JSAPI",
                                                                          product_id=product_id, to_user=to_user,
-                                                                         notify_url=settings.HTTP_HOST + "/wechatpub/pay/result")
+                                                                         notify_url=settings.HTTP_HOST + "/wechatpub/pay/result",
+                                                                         jssdk_sign_callback=jssdk_callback)
         return success, err_code, err_msg
