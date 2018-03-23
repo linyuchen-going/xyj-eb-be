@@ -50,6 +50,6 @@ class LoginTestApi(ApiBaseView):
 
     def get(self, request, *args, **kwargs):
         if settings.DEBUG:
-            user = User.objects.first()
+            user = User.objects.filter(wxopenid="opz8n01Z9p8IaSYcGxlu9EIjLSZ0").first()
             login(request, user)
         return Response("ok")

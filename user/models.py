@@ -5,11 +5,11 @@ from .address.models import Address
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, mobile: str):
-        return self.model.objects.get_or_create(mobile=mobile)[0]
+    def create_user(self, wxopenid: str):
+        return self.model.objects.get_or_create(wxopenid=wxopenid)[0]
 
-    def create_superuser(self, mobile: str, password: str):
-        user = self.create_user(mobile)
+    def create_superuser(self, wxopenid: str, password: str):
+        user = self.create_user(wxopenid)
         user.set_password(password)
         user.is_staff = True
         user.is_admin = True
@@ -29,7 +29,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     def get_full_name(self) -> str:
-        return self.nick or self.mobile
+        return self.nick or self.wxopenid
 
     def get_short_name(self) -> str:
         return self.get_full_name()
@@ -40,3 +40,5 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label) -> bool:
         return True
 
+    def __str__(self):
+        return self.get_full_name()

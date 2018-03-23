@@ -1,4 +1,5 @@
 # -*- coding:UTF-8 -*-
+from django.contrib.auth import login
 from _wechatpub.django.views.wechat_auth import WechatAuthBaseView, WechatHtmlAuthBaseView, ApiWechatAuthBase
 from user.models import User
 
@@ -17,6 +18,7 @@ class WechatAuthView(WechatAuthBaseView):
             user = User(wxopenid=openid)
         user.nick = nick
         user.save()
+        login(self.request, user)
 
 
 class ApiWechatAuth(WechatAuthView, ApiWechatAuthBase):

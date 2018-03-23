@@ -25,7 +25,7 @@ SECRET_KEY = 'f8m3e^7@#=*i%(=#^sgs(p=-l3@iy@d)=3036re$a+ca#c_!7g'
 
 # SECURITY WARNING: don't run with debug turned on in production!localhost
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.2.5", "192.168.1.4", "www.kxshanghai.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "192.168.2.5", "192.168.1.4", "www.kxshanghai.com", "forward2.linyuchen.net"]
 
 
 # Application definition
@@ -41,13 +41,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'user',
     'product',
+    'wechatpub',
     'order',
     'image',
     'invite_code',
     'backend',
     'fe',
     '_wechatpub.django',
-    'wechatpub'
 ]
 
 MIDDLEWARE = [
@@ -137,7 +137,8 @@ CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8001',
     '192.168.2.5:8001',
     'localhost:8001',
-    'www.kxshanghai.com'
+    'www.kxshanghai.com',
+    'forward2.linyuchen.net'
 )
 
 # 邮件配置
@@ -150,9 +151,11 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = SERVER_EMAIL = EMAIL_HOST_USER
 
+#
+
 # 微信公众号配置
 
-WECHAT_PUB_SERVER_HTTP_HOST = server_config.HTTP_HOST
+HTTP_HOST = WECHAT_PUB_SERVER_HTTP_HOST = server_config.HTTP_HOST
 WECHAT_PUB_APPID = server_config.WECHAT_APPID
 WECHAT_PUB_APPSECRET = server_config.WECHAT_APPSECRET
 WECHAT_PUB_APPTOKEN = server_config.WECHAT_APP_TOKEN

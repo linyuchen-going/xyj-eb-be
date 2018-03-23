@@ -87,9 +87,10 @@ class NewProductOrderApi(LycApiBaseView):
             product = order.product
             pay_way = request.data.get("pay_way")
             out_trade_no = uuid.uuid4().hex
-            response.data["jssdk_config"] = WECHATPUB_API.jssdk_config(request.build_absolute_uri())
+            response.data["jssdk_config"] = WECHATPUB_API.jssdk_config("http://forward2.linyuchen.net/")
             WechatPay().create_order(order_summary=order.product.name, out_trade_no=out_trade_no,
-                                     money=product.price, to_user=order.user.wxopenid, response_data=response.data)
+                                     money=product.price, to_user=order.user.wxopenid, response_data=response.data,
+                                     product_id=product.id)
             wechat_pay_order = WechatPayOrder(money=product.price)
             wechat_pay_order.save()
             order.wechat_pay_order = wechat_pay_order
